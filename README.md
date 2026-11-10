@@ -38,3 +38,57 @@ git push -u origin codex/8-test-ocr
 Sur GitHub, créer ensuite une pull request avec `dev` comme branche de destination et demander la relecture de l’autre membre : Nathan relit le travail de Maël, Maël relit celui de Nathan. Avant de commencer, se répartir les issues dans GitHub Project pour éviter de modifier les mêmes fichiers en même temps.
 
 La mise en place initiale de ces conventions (issue #12) est publiée directement sur `main` et `dev`. Les tâches suivantes suivent le processus de pull request décrit ci-dessus.
+
+## Démarrage local
+
+Il faut PHP 8.2 ou plus récent, les extensions PHP `intl` et `mbstring`,
+et Composer 2.0.14 ou plus récent. Aucune base de données n’est nécessaire
+pour afficher la page d’accueil.
+
+### Sur Windows
+
+1. Ouvrir PowerShell et lancer `php -v`. Si PowerShell ne reconnaît pas
+   `php`, ajouter le dossier qui contient `php.exe` à la variable
+   d’environnement `Path`, puis rouvrir PowerShell.
+2. Lancer `php -m` et vérifier que `intl`, `mbstring`, `openssl` et `zip`
+   figurent dans la liste. Les deux dernières permettent à Composer de
+   télécharger et d’extraire les dépendances. S’il manque une extension,
+   lancer `php --ini` pour trouver le fichier `php.ini` chargé. Si aucun
+   fichier n’est chargé, copier `php.ini-development` en `php.ini` à côté
+   de `php.exe`. Dans `php.ini`, retirer le point-virgule devant les lignes
+   `extension=...` correspondantes et vérifier que `extension_dir` pointe
+   vers le dossier `ext` de PHP. Relancer `php -m` pour vérifier.
+3. Installer Composer avec [l’installateur officiel pour Windows](https://getcomposer.org/doc/00-intro.md#installation-windows).
+   Si l’installateur demande où est PHP, sélectionner le `php.exe` affiché en
+   premier par `where.exe php`. Ouvrir un nouveau PowerShell et vérifier
+   l’installation avec `composer --version`.
+4. Après la fusion de la pull request, ouvrir PowerShell dans sa copie locale
+   du dépôt et mettre `dev` à jour.
+
+   ```powershell
+   git switch dev
+   git pull --ff-only origin dev
+   ```
+
+5. Depuis le même dossier, qui contient maintenant `composer.json`, lancer
+   ces commandes.
+
+   ```powershell
+   composer install --no-dev
+   if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+   php spark serve
+   ```
+
+### Sur macOS ou Linux
+
+Depuis le dossier du projet, avec PHP et Composer déjà installés, lancer les
+commandes suivantes.
+
+```sh
+composer install --no-dev
+test -f .env || cp .env.example .env
+php spark serve
+```
+
+Ouvrir [http://localhost:8080](http://localhost:8080). La page de bienvenue
+de CodeIgniter doit s’afficher. Arrêter le serveur avec `Ctrl+C`.
