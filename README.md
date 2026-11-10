@@ -1,5 +1,26 @@
 # Projet Mael & Nathan
 
+## Démarrage local
+
+Prérequis pour CodeIgniter 4 et ses outils de test : PHP 8.2 ou plus récent,
+Composer 2.0.14 ou plus récent, et les extensions PHP `intl`, `mbstring`,
+`dom`, `libxml`, `xml` et `xmlwriter`. Aucune base de données n’est
+nécessaire pour afficher la page d’accueil.
+
+Dans le dossier du dépôt cloné, lancer les commandes suivantes.
+
+```sh
+composer install
+cp .env.example .env
+php spark serve
+```
+
+Sous PowerShell, utiliser `Copy-Item .env.example .env` à la place de
+`cp .env.example .env`. Si `.env` existe déjà, le conserver.
+
+Ouvrir [http://localhost:8080](http://localhost:8080). La page de bienvenue
+de CodeIgniter doit s’afficher. Arrêter le serveur avec `Ctrl+C`.
+
 ## Binôme et rôles
 
 - **Mael Dayani Poty** — Dieu du dépôt GitHub

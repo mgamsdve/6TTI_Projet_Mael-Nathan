@@ -1,0 +1,36 @@
+# Configuration locale et secrets
+.env
+.env.*
+!.env.example
+secrets/
+*service-account*.json
+auth.json
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Dépendances et fichiers générés
+/vendor/
+/build/
+/phpunit.xml
+/.phpunit.result.cache
+*.log
+
+# Données générées par CodeIgniter
+/writable/*
+!/writable/.htaccess
+!/writable/index.html
+!/writable/cache/
+!/writable/debugbar/
+!/writable/logs/
+!/writable/session/
+!/writable/uploads/
+/writable/*/*
+!/writable/*/index.html
+
+# Éditeurs et système
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
